@@ -45,17 +45,20 @@ public class TodoMain {
 
 			case "ls_name_asc":
 				l.sortByName();
+				System.out.println("이름순으로 정렬하였습니다.");
 				isList = true;
 				break;
 
 			case "ls_name_desc":
 				l.sortByName();
 				l.reverseList();
+				System.out.println("이름역순으로 정렬하였습니다.");
 				isList = true;
 				break;
 				
 			case "ls_date":
 				l.sortByDate();
+				System.out.println("날짜순으로 정렬하였습니다.");
 				isList = true;
 				break;
 
