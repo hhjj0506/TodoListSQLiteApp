@@ -87,6 +87,7 @@ public class TodoUtil {
 		System.out.println("새로운 카테고리 입력 > ");
 		String new_category = sc.next().trim();
 		
+		sc.nextLine();
 		System.out.println("새로운 내용 입력 > ");
 		String new_description = sc.nextLine().trim();
 		
