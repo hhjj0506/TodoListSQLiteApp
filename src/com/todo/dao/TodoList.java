@@ -237,8 +237,36 @@ public class TodoList {
 		return list;
 	}
 	
-	public TodoItem[] getPrior() {
-		return null;
+	public ArrayList<TodoItem> getPrior() {
+		ArrayList<TodoItem> list = new ArrayList<TodoItem>();
+		Statement stmt;
+		try {
+			stmt = conn.createStatement();
+			String sql = "SELECT * FROM list ORDER BY priority";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String category = rs.getString("category");
+				String title = rs.getString("title");
+				String description = rs.getString("memo");
+				String due_date = rs.getString("due_date");
+				String current_date = rs.getString("current_date");
+				int is_completed = rs.getInt("is_completed");
+				int percent = rs.getInt("percent");
+				int priority = rs.getInt("priority");
+				TodoItem t = new TodoItem(title, description, category, due_date);
+				t.setId(id);
+				t.setIs_completed(is_completed);
+				t.setPercent(percent);
+				t.setPriority(priority);
+				t.setCurrent_date(current_date);
+				list.add(t);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 	public ArrayList<TodoItem> getList(int num) {

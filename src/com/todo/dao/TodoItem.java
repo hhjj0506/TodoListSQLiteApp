@@ -28,7 +28,7 @@ public class TodoItem {
     	String temp = null;
     	
     	switch (priority) {
-    		case 0: temp = "N/A"; break;
+    		case 5: temp = "N/A"; break;
     		case 1: temp = "Critical"; break;
     		case 2: temp = "High"; break;
     		case 3: temp = "Medium"; break;
