@@ -89,6 +89,53 @@ public class TodoList {
 		}
 		System.out.println("완료 처리하였습니다.");
 	}
+	
+	public void uncompleteItem(int num) {
+		String sql = "update list set is_completed=0"
+				+ " where id = ?;";
+		PreparedStatement pstmt;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("미완료 처리하였습니다.");
+	}
+	
+	public void percItem(int index, int perc) {
+		String sql = "update list set percent=?"
+				+ " where id = ?;";
+		PreparedStatement pstmt;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, perc);
+			pstmt.setInt(2, index);
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("진행도가 입력되었습니다.");
+	}
+	
+	public void setPrior(int index, int prior) {
+		String sql = "update list set priority=?"
+				+ " where id = ?;";
+		PreparedStatement pstmt;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, prior);
+			pstmt.setInt(2, index);
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("중요도가 입력되었습니다.");
+	}
 
 	public ArrayList<TodoItem> getList() {
 		ArrayList<TodoItem> list = new ArrayList<TodoItem>();
@@ -105,9 +152,13 @@ public class TodoList {
 				String due_date = rs.getString("due_date");
 				String current_date = rs.getString("current_date");
 				int is_completed = rs.getInt("is_completed");
+				int percent = rs.getInt("percent");
+				int priority = rs.getInt("priority");
 				TodoItem t = new TodoItem(title, description, category, due_date);
 				t.setId(id);
 				t.setIs_completed(is_completed);
+				t.setPercent(percent);
+				t.setPriority(priority);
 				t.setCurrent_date(current_date);
 				list.add(t);
 			}
@@ -136,9 +187,13 @@ public class TodoList {
 				String due_date = rs.getString("due_date");
 				String current_date = rs.getString("current_date");
 				int is_completed = rs.getInt("is_completed");
+				int percent = rs.getInt("percent");
+				int priority = rs.getInt("priority");
 				TodoItem t = new TodoItem(title, description, category, due_date);
 				t.setId(id);
 				t.setIs_completed(is_completed);
+				t.setPercent(percent);
+				t.setPriority(priority);
 				t.setCurrent_date(current_date);
 				list.add(t);
 			}
@@ -147,6 +202,43 @@ public class TodoList {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public ArrayList<TodoItem> getPerc(int perc) {
+		ArrayList<TodoItem> list = new ArrayList<TodoItem>();
+		PreparedStatement pstmt;
+		try {
+			String sql = "SELECT * FROM list WHERE percent like ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, perc);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String category = rs.getString("category");
+				String title = rs.getString("title");
+				String description = rs.getString("memo");
+				String due_date = rs.getString("due_date");
+				String current_date = rs.getString("current_date");
+				int is_completed = rs.getInt("is_completed");
+				int percent = rs.getInt("percent");
+				int priority = rs.getInt("priority");
+				TodoItem t = new TodoItem(title, description, category, due_date);
+				t.setId(id);
+				t.setIs_completed(is_completed);
+				t.setPercent(percent);
+				t.setPriority(priority);
+				t.setCurrent_date(current_date);
+				list.add(t);
+			}
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public TodoItem[] getPrior() {
+		return null;
 	}
 	
 	public ArrayList<TodoItem> getList(int num) {
@@ -165,9 +257,13 @@ public class TodoList {
 				String due_date = rs.getString("due_date");
 				String current_date = rs.getString("current_date");
 				int is_completed = rs.getInt("is_completed");
+				int percent = rs.getInt("percent");
+				int priority = rs.getInt("priority");
 				TodoItem t = new TodoItem(title, description, category, due_date);
 				t.setId(id);
 				t.setIs_completed(is_completed);
+				t.setPercent(percent);
+				t.setPriority(priority);
 				t.setCurrent_date(current_date);
 				list.add(t);
 			}
@@ -212,9 +308,13 @@ public class TodoList {
 				String due_date = rs.getString("due_date");
 				String current_date = rs.getString("current_date");
 				int is_completed = rs.getInt("is_completed");
+				int percent = rs.getInt("percent");
+				int priority = rs.getInt("priority");
 				TodoItem t = new TodoItem(title, description, category, due_date);
 				t.setId(id);
 				t.setIs_completed(is_completed);
+				t.setPercent(percent);
+				t.setPriority(priority);
 				t.setCurrent_date(current_date);
 				list.add(t);
 			}
@@ -259,9 +359,13 @@ public class TodoList {
 				String due_date = rs.getString("due_date");
 				String current_date = rs.getString("current_date");
 				int is_completed = rs.getInt("is_completed");
+				int percent = rs.getInt("percent");
+				int priority = rs.getInt("priority");
 				TodoItem t = new TodoItem(title, description, category, due_date);
 				t.setId(id);
 				t.setIs_completed(is_completed);
+				t.setPercent(percent);
+				t.setPriority(priority);
 				t.setCurrent_date(current_date);
 				list.add(t);
 			}

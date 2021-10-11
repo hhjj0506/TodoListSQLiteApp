@@ -55,7 +55,32 @@ public class TodoUtil {
 			System.out.println("항목이 제거되었습니다.");
 		}
 	}
+	
+	public static void percItem(TodoList l) {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("[항목 진행도 입력]\n"
+				+ "항목 번호 입력 > ");
+		int index =  sc.nextInt();
+		
+		System.out.println("진행도 입력 (0-100) > ");
+		int perc =  sc.nextInt();
+		
+		l.percItem(index, perc);
+	}
 
+	public static void setPrior(TodoList l) {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("[항목 중요도 입력]\n"
+				+ "항목 번호 입력 > ");
+		int index = sc.nextInt();
+		
+		System.out.println("중요도 입력 (1. Critical, 2. High, 3. Medium, 4. Low) > ");
+		int prior = sc.nextInt();
+		
+		l.setPrior(index, prior);
+	}
 
 	public static void updateItem(TodoList l) {
 		
@@ -79,7 +104,7 @@ public class TodoUtil {
 		System.out.println("새로운 내용 입력 > ");
 		String new_description = sc.nextLine().trim();
 		
-		sc.nextLine();
+		//sc.nextLine();
 		System.out.println("새로운 마감일자 입력 (년/월/일) > ");
 		String new_due_date = sc.nextLine().trim();
 
@@ -92,6 +117,10 @@ public class TodoUtil {
 	
 	public static void completeItem(TodoList l, int num) {
 		l.completeItem(num);
+	}
+	
+	public static void uncompleteItem(TodoList l, int num) {
+		l.uncompleteItem(num);
 	}
 	
 	public static void findList(TodoList l, String word) {
@@ -112,6 +141,15 @@ public class TodoUtil {
 		System.out.println("총 " + count + "개의 항목을 찾았습니다.");
 	}
 	
+	public static void findPerc(TodoList l, int perc) {
+		int count = 0;
+		for (TodoItem item : l.getPerc(perc)) {
+			System.out.println(item.toString());
+			count++;
+		}
+		System.out.println("총 " + count + "개의 항목을 찾았습니다.");
+	}
+	
 	public static void listCateAll(TodoList l) {
 		int count = 0;
 		
@@ -121,6 +159,13 @@ public class TodoUtil {
 		}
 		
 		System.out.printf("총 %d개의 카테고리가 존재합니다.", count);
+	}
+	
+	public static void listPriorAll(TodoList l) {
+		System.out.printf("[전체 목록, 총 %d개]\n", l.getCount());
+		for (TodoItem item : l.getPrior()) {
+			System.out.println(item.toString());
+		}
 	}
 
 	public static void listAll(TodoList l) {

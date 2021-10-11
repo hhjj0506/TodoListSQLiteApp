@@ -50,9 +50,32 @@ public class TodoMain {
 				TodoUtil.findCateList(l, s1);
 				break;
 				
+			case "find_perc":
+				int perc = sc.nextInt();
+				TodoUtil.findPerc(l, perc);
+				break;
+				
 			case "comp":
 				int num = sc.nextInt();
 				TodoUtil.completeItem(l, num);
+				break;
+				
+			case "uncomp":
+				int num1 = sc.nextInt();
+				TodoUtil.uncompleteItem(l, num1);
+				break;
+			
+			case "percent":
+				TodoUtil.percItem(l);
+				break;
+				
+			case "prior":
+				TodoUtil.setPrior(l);
+				break;
+			
+			case "ls_prior":
+				System.out.println("중요도순으로 정렬하였습니다.");
+				TodoUtil.listPriorAll(l);
 				break;
 				
 			case "ls_comp":

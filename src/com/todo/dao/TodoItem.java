@@ -11,6 +11,8 @@ public class TodoItem {
     private String due_date;
     private int id;
     private int is_completed;
+    private int percent;
+    private int priority;
 
     public TodoItem(String title, String desc, String category, String due_date){
         this.title = title;
@@ -23,10 +25,20 @@ public class TodoItem {
     
     @Override
 	public String toString() {
-    	if (is_completed == 1) {
-    		return id + " [" + category + "] " + title + "[V] - " + desc + " - " + due_date + " - " + current_date;
+    	String temp = null;
+    	
+    	switch (priority) {
+    		case 0: temp = "N/A"; break;
+    		case 1: temp = "Critical"; break;
+    		case 2: temp = "High"; break;
+    		case 3: temp = "Medium"; break;
+    		case 4: temp = "Low"; break;
     	}
-		return id + " [" + category + "] " + title + " - " + desc + " - " + due_date + " - " + current_date;
+    	
+    	if (is_completed == 1) {
+    		return id + " [" + category + "] " + title + "[V] - " + desc + " - " + due_date + " - " + current_date + " - " + percent + "% - " + temp;
+    	}
+		return id + " [" + category + "] " + title + " - " + desc + " - " + due_date + " - " + current_date + " - " + percent + "% - " + temp;
 	}
     
     public String toSaveString() {
@@ -87,5 +99,21 @@ public class TodoItem {
 
 	public void setIs_completed(int is_completed) {
 		this.is_completed = is_completed;
+	}
+
+	public int getPercent() {
+		return percent;
+	}
+
+	public void setPercent(int percent) {
+		this.percent = percent;
+	}
+
+	public int getPriority() {
+		return priority;
+	}
+
+	public void setPriority(int priority) {
+		this.priority = priority;
 	}
 }
